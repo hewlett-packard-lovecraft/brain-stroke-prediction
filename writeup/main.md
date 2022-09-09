@@ -41,7 +41,7 @@ indicates if the patient has had a stroke or not. The dataset is available
 on Kaggle, a public dataset repository. We use all 12 attributes to
 benchmark our predictive models.
 
-![Scatterplot matrix](../results/pairplot.png){#fig:scatter-matrix}
+![Scatterplot matrix](../results/training_set_label_distribution.png){#fig:scatter-matrix}
 
 # Methodology
 
