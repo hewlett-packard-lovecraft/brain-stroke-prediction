@@ -41,7 +41,7 @@ indicates if the patient has had a stroke or not. The dataset is available
 on Kaggle, a public dataset repository. We use all 12 attributes to
 benchmark our predictive models.
 
-![Scatterplot matrix](../results/training_set_label_distribution.png){#fig:scatter-matrix}
+![Scatterplot matrix](../results/pairplot.png){#fig:scatter-matrix}
 
 # Methodology
 
@@ -67,7 +67,7 @@ Edited Nearest Neighbors 51013 rows. Finally, for XGBoost, RandomForest,
 and DecisionTree, we one-hot-encode the categorical features of each
 row.
 
-![Training Set Label Distribution](../results/pairplot.png){#fig:training-set-label-distribution}
+![Training Set Label Distribution](../results/training_set_label_distribution.png){#fig:training-set-label-distribution}
 
 We repeat this training-validation-test split and resampling experiment 10
 times to minimize sampling bias and take the mean AUC, Binary Accuracy,
