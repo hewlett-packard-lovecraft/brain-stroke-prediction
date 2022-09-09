@@ -2,7 +2,8 @@
 template: 'mytemplate.tex'
 title: Analyzing the Performance of TabTransformer in Brain Stroke Prediction
 author: Haoming Xia
-bibliography: "biblio.bib"
+date: 2022-06-22
+bibliography: biblio.bib
 abstract: |
 	The adoption of electronic patient health records has paved the way for machine learning and deep learning in disease diagnostics and prediction. Neural networks are especially suited to such tasks as they can handle noisy data and perform well even with many input variables. In this study, we measure the performance of TabTransformer, a new deep tabular data modelling architecture proposed in 2020. We then compare TabTransformer’s performance with other state-of-art machine learning algorithms, including the feed-forward Multilayer Perceptron model, which performed well in previous studies.
 
@@ -14,7 +15,6 @@ secPrefix:
   - "Sections"
 ...
 
-
 # Introduction
 
 The widespread adoption of electronic health records in recent decades has
@@ -25,21 +25,28 @@ availability of patient data. Furthermore, they assist in developing novel
 treatments and algorithms as securely anonymized data sources for machine
 learning and other data mining techniques. In this paper, we analyze the
 performance of TabTransformer, a deep tabular data modelling architecture
-introduced by Amazon in 2020, in predicting the occurrence of brain
-stroke. Then, we benchmark other state-of-the-art methods, such as
-XGBoost, alongside RandomForest and DecisionTree and compare performance.
+introduced by Amazon in 2020 [@https://doi.org/10.48550/arxiv.2012.06678],
+in predicting the occurrence of brain stroke. We benchmark other
+state-of-the-art methods including XGBoost [@Chen_2016], the Kaggle
+competition winner for the stroke prediction
+dataset^[<https://www.kaggle.com/code/ahmtcnbs/stroke-prediction-xgboost-97>];
+and Multilayer Perceptron, the model with the most performance in a 2019
+study [@https://doi.org/10.48550/arxiv.1904.11280].
 
 # Dataset
 
 We selected a dataset of patient records first released for the McKinsey
-Analytics Hackathon by McKinsey Analytics. The dataset contains
-information from 43,401 patients and 11 clinical features for predicting
-stroke events: patient gender, age, hypertension, marital status, work
-type, residence type, average blood glucose level, hypertension, body mass
-index, and smoking status. The 12th attribute, the target variable,
-indicates if the patient has had a stroke or not. The dataset is available
-on Kaggle, a public dataset repository. We use all 12 attributes to
-benchmark our predictive models.
+Analytics Hackathon
+^[<https://datahack.analyticsvidhya.com/contest/mckinsey-analytics-online-hackathon/>]
+by McKinsey Analytics. The dataset contains information from 43,401
+patients and 11 clinical features for predicting stroke events: patient
+gender, age, hypertension, marital status, work type, residence type,
+average blood glucose level, hypertension, body mass index, and smoking
+status. The 12th attribute, the target variable, indicates if the patient
+has had a stroke or not. The dataset is published
+Kaggle^[<https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset>],
+a public dataset repository. We use all 12 attributes to benchmark our
+predictive models.
 
 ![Scatterplot matrix](../results/pairplot.png){#fig:scatter-matrix}
 
@@ -51,9 +58,9 @@ TabTransformer.
 
 Our first problem is that 30% of the records are from patients with
 unknown smoking status. Our dataset contains categorical and continuous
-values, so we impute these unknowns with the MissForest algorithm,
-a performant and computationally efficient missing value imputation
-algorithm that handles mixed-type data.
+values, so we impute these unknowns with MissForest, a performant and
+computationally efficient missing value imputation algorithm that handles
+mixed-type data^[@Stekhoven_2011].
 
 Moreover, the dataset of electronic heaalth records is highly unbalanced.
 Out of 43,401 records in the dataset, only 748 are from patients with
@@ -79,23 +86,23 @@ classification algorithm.
 XGBoost has the best mean performance over all experiments at 87.94% AUC.
 Next are MLP, RandomForest, TabTransformer, and DecisionTree.
 
-|                |   Mean Accuracy |   Mean AUC |   Mean Miss Rate |
-|:---------------|----------------:|-----------:|-----------------:|
-| XGBoost        |        0.982857 |   0.899631 |       0.0174433  |
-| RandomForest   |        0.989831 |   0.937669 |       0.0101347  |
-| DecisionTree   |        0.978879 |   0.724109 |       0.00952759 |
-| TabTransformer |        0.983103 |   0.772889 |       0.0170634  |
-| MLP            |        0.983364 |   0.897986 |       0.0164655  |
+|                | Mean Accuracy | Mean AUC | Mean Miss Rate |
+| :------------- | ------------: | -------: | -------------: |
+| XGBoost        |      0.982857 | 0.899631 |      0.0174433 |
+| RandomForest   |      0.989831 | 0.937669 |      0.0101347 |
+| DecisionTree   |      0.978879 | 0.724109 |     0.00952759 |
+| TabTransformer |      0.983103 | 0.772889 |      0.0170634 |
+| MLP            |      0.983364 | 0.897986 |      0.0164655 |
 
 Table: Mean accuracy, AUC, and miss rate before resampling
 
-|                |   Mean Accuracy |   Mean AUC |   Mean Miss Rate |
-|:---------------|----------------:|-----------:|-----------------:|
-| XGBoost        |        0.982765 |   0.879396 |        0.0175231 |
-| RandomForest   |        0.983241 |   0.807357 |        0.0169513 |
-| DecisionTree   |        0.964793 |   0.626568 |        0.012931  |
-| TabTransformer |        0.98318  |   0.771692 |        0.0170621 |
-| MLP            |        0.982596 |   0.831457 |        0.0172757 |
+|                | Mean Accuracy | Mean AUC | Mean Miss Rate |
+| :------------- | ------------: | -------: | -------------: |
+| XGBoost        |      0.982765 | 0.879396 |      0.0175231 |
+| RandomForest   |      0.983241 | 0.807357 |      0.0169513 |
+| DecisionTree   |      0.964793 | 0.626568 |       0.012931 |
+| TabTransformer |       0.98318 | 0.771692 |      0.0170621 |
+| MLP            |      0.982596 | 0.831457 |      0.0172757 |
 
 Table: Mean accuracy, AUC, and miss rate after resampling
 
@@ -113,100 +120,3 @@ worse in some metrics. Neither TabTransformer nor MLP performed better
 than XGBoost, the best performing algorithm for this dataset on Kaggle.
 
 # References
-
-
----
-nocite: "[@*]"
-references:
-- author:
-  - family: Nwosu
-    given: Chidozie Shamrock
-  - family: Dev
-    given: Soumyabrata
-  - family: Bhardwaj
-    given: Peru
-  - family: Veeravalli
-    given: Bharadwaj
-  - family: John
-    given: Deepu
-  doi: 10.48550/ARXIV.1904.11280
-  id: "https://doi.org/10.48550/arxiv.1904.11280"
-  issued: 2019
-  keyword: "Quantitative Methods (q-bio.QM), Applications (stat.AP),
-    FOS: Biological sciences, FOS: Biological sciences, FOS: Computer
-    and information sciences, FOS: Computer and information sciences"
-  publisher: arXiv
-  title: Predicting stroke from electronic health records
-  url: "https://arxiv.org/abs/1904.11280"
-- author:
-  - family: Huang
-    given: Xin
-  - family: Khetan
-    given: Ashish
-  - family: Cvitkovic
-    given: Milan
-  - family: Karnin
-    given: Zohar
-  doi: 10.48550/ARXIV.2012.06678
-  id: "https://doi.org/10.48550/arxiv.2012.06678"
-  issued: 2020
-  keyword: "Machine Learning (cs.LG), Artificial Intelligence (cs.AI),
-    FOS: Computer and information sciences, FOS: Computer and
-    information sciences"
-  publisher: arXiv
-  title: "TabTransformer: Tabular data modeling using contextual
-    embeddings"
-  title-short: TabTransformer
-  url: "https://arxiv.org/abs/2012.06678"
-- author:
-  - family: Chen
-    given: Tianqi
-  - family: Guestrin
-    given: Carlos
-  container-title: Proceedings of the 22nd ACM SIGKDD international
-    conference on knowledge discovery and data mining
-  doi: 10.1145/2939672.2939785
-  id: Chen_2016
-  issued: 2016-08
-  publisher: ACM
-  title: XGBoost
-  type: paper-conference
-  url: "https://doi.org/10.1145%2F2939672.2939785"
-- author:
-  - family: Stekhoven
-    given: D. J.
-  - family: Buhlmann
-    given: P.
-  container-title: Bioinformatics
-  doi: 10.1093/bioinformatics/btr597
-  id: Stekhoven_2011
-  issue: 1
-  issued: 2011-10
-  page: 112-118
-  publisher: Oxford University Press (OUP)
-  title: MissForest--non-parametric missing value imputation for
-    mixed-type data
-  type: article-journal
-  url: "https://doi.org/10.1093%2Fbioinformatics%2Fbtr597"
-  volume: 28
-- author:
-  - family: Pathan
-    given: Muhammad Salman
-  - family: Zhang
-    given: Jianbiao
-  - family: John
-    given: Deepu
-  - family: Nag
-    given: Avishek
-  - family: Dev
-    given: Soumyabrata
-  doi: 10.48550/ARXIV.2110.10152
-  id: "https://doi.org/10.48550/arxiv.2110.10152"
-  issued: 2021
-  keyword: "Machine Learning (cs.LG), FOS: Computer and information
-    sciences, FOS: Computer and information sciences"
-  publisher: arXiv
-  title: Identifying stroke indicators using rough sets
-  url: "https://arxiv.org/abs/2110.10152"
----
-
